@@ -1,0 +1,43 @@
+body {
+  font-family: sans-serif;
+  max-width: 700px;
+  margin: 0 auto;
+  padding: 20px;
+  line-height: 1.6;
+}
+
+header, nav, section {
+  margin-bottom: 30px;
+}
+
+nav a {
+  margin-right: 15px;
+  text-decoration: none;
+  color: #333333;
+}
+
+nav a:hover {
+  text-decoration: underline;
+}
+
+h1, h2 {
+  margin-bottom: 10px;
+}
+
+.scripture {
+  font-style: italic;
+  color: #555555;
+}
+footer {
+  font-size: 15px;
+  color: #888888;
+  margin-top: 40px;
+  text-align: center;
+  padding: 10px 0;
+}
+
+.date {
+  font-family: "Courier New", Courier, monospace;
+  font-weight: 600;
+  letter-spacing: 0.5px;
+}
