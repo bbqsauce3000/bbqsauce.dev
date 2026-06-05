@@ -41,3 +41,19 @@ footer {
   font-weight: 600;
   letter-spacing: 0.5px;
 }
+.feedback-link {
+  text-align: center;
+  margin-top: 20px;
+  font-size: 15px;
+  color: #888888;
+}
+
+.feedback-link a {
+  color: #888888;
+  text-decoration: none;
+}
+
+.feedback-link a:hover {
+  text-decoration: underline;
+  color: #555555;
+}
