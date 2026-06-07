@@ -6,8 +6,14 @@ function buildList(dir, prefix) {
     .filter(f => f.endsWith(".html"))
     .sort()
     .map(f => {
-      const name = f.replace(".html", "").replace(/-/g, " ");
-      return `<li><a href="${prefix}/${f}">${name}</a></li>`;
+      const filePath = path.join(dir, f);
+      const html = fs.readFileSync(filePath, "utf8");
+
+      let title = html.match(/<title>(.*?)<\/title>/i)?.[1];
+      if (!title) title = html.match(/<h1[^>]*>(.*?)<\/h1>/i)?.[1];
+      if (!title) title = f.replace(".html", "").replace(/-/g, " ");
+
+      return `<li><a href="${prefix}/${f}">${title}</a></li>`;
     })
     .join("\n");
 }
@@ -15,7 +21,6 @@ function buildList(dir, prefix) {
 const ramblingsList = buildList("./bible/articles", "articles");
 let ramblingsPage = fs.readFileSync("./bible/ramblings.html", "utf8");
 ramblingsPage = ramblingsPage.replace("<!-- RAMBLINGS -->", ramblingsList);
-
 fs.writeFileSync("./bible/ramblings.html", ramblingsPage);
 
 const studiesList = buildList("./bible/studies", "studies");
