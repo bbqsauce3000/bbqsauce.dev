@@ -1,7 +1,6 @@
 const fs = require("fs");
 const path = require("path");
 
-
 function buildList(dir, prefix) {
   return fs.readdirSync(dir)
     .filter(f => f.endsWith(".html"))
@@ -16,7 +15,8 @@ function buildList(dir, prefix) {
 const ramblingsList = buildList("./bible/articles", "articles");
 let ramblingsPage = fs.readFileSync("./bible/ramblings.html", "utf8");
 ramblingsPage = ramblingsPage.replace("<!-- RAMBLINGS -->", ramblingsList);
-fs.writeFileSync("./bible/articles", ramblingsPage);
+
+fs.writeFileSync("./bible/ramblings.html", ramblingsPage);
 
 const studiesList = buildList("./bible/studies", "studies");
 let studiesPage = fs.readFileSync("./bible/studies.html", "utf8");
