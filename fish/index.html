@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Fish Simulator</title>
+  <style>
+    body {
+      margin: 0;
+      background: #000;
+      overflow: hidden;
+    }
+    .fish {
+      position: absolute;
+      width: 180px;
+      image-rendering: pixelated;
+      will-change: transform, left, top, filter;
+    }
+  </style>
+</head>
+<body>
+
+<script>
+  const NUM_FISH = 20;
+  const fishes = [];
+  let fishWidth = 180;
+  let fishHeight = 100;
+
+  function createFish() {
+    const img = document.createElement("img");
+    img.src = "fish.png";
+    img.className = "fish";
+
+    const hue = Math.random() * 360;
+    const sat = 4 + Math.random() * 4;
+    const bright = 1.5 + Math.random() * 1;
+    const contrast = 1.5 + Math.random() * 1;
+
+    img.style.filter =
+      `hue-rotate(${hue}deg) saturate(${sat}) brightness(${bright}) contrast(${contrast})`;
+
+    document.body.appendChild(img);
+
+    return {
+      el: img,
+      x: Math.random() * window.innerWidth,
+      y: Math.random() * window.innerHeight,
+      vx: (Math.random() * 4 + 1) * (Math.random() < 0.5 ? -1 : 1),
+      vy: (Math.random() * 4 + 1) * (Math.random() < 0.5 ? -1 : 1)
+    };
+  }
+
+  for (let i = 0; i < NUM_FISH; i++) {
+    fishes.push(createFish());
+  }
+
+  function loop() {
+    const w = window.innerWidth;
+    const h = window.innerHeight;
+
+    for (const f of fishes) {
+      const fw = fishWidth;
+      const fh = fishHeight;
+
+      f.x += f.vx;
+      f.y += f.vy;
+
+      if (f.x <= 0) {
+        f.x = 0;
+        f.vx *= -1;
+        f.el.style.transform = "scaleX(1)";
+      } else if (f.x + fw >= w) {
+        f.x = w - fw;
+        f.vx *= -1;
+        f.el.style.transform = "scaleX(-1)";
+      }
+
+      if (f.y <= 0) {
+        f.y = 0;
+        f.vy *= -1;
+      } else if (f.y + fh >= h) {
+        f.y = h - fh;
+        f.vy *= -1;
+      }
+
+      f.el.style.left = f.x + "px";
+      f.el.style.top = f.y + "px";
+    }
+
+    requestAnimationFrame(loop);
+  }
+
+  const temp = new Image();
+  temp.src = "fish.png";
+  temp.onload = () => {
+    fishWidth = temp.width * (180 / temp.width);
+    fishHeight = temp.height * (180 / temp.width);
+    requestAnimationFrame(loop);
+  };
+</script>
+
+</body>
+</html>
