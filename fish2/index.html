@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>Fish Game</title>
+<style>
+  body { margin: 0; overflow: hidden; background: black; }
+  canvas { width: 100vw; height: 100vh; display: block; cursor: none; }
+</style>
+</head>
+<body>
+
+<canvas id="canvas" tabindex="1"></canvas>
+
+<script>
+  var Module = {
+    canvas: document.getElementById('canvas'),
+    print: () => {},
+    printErr: () => {}
+  };
+</script>
+
+<script async type="text/javascript" src="fish.js"></script>
+
+</body>
+</html>
